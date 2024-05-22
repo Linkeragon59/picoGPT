@@ -21,7 +21,7 @@ dropout_ratio = 0.2
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 training_steps = 5000
 learning_rate = 3e-4
-eval_interval = 1
+eval_interval = 10
 eval_size = 200
 
 # Data setup
