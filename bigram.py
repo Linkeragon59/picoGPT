@@ -101,3 +101,5 @@ for step in range(training_steps):
 context = torch.zeros((1, 1), dtype=torch.long, device=device)
 output = model.generate(context, max_new_tokens=1000)[0]
 print(decode(output.tolist()))
+output = model.generate(context, max_new_tokens=10000)[0]
+open('output_bigram.txt', 'w').write(decode(output.tolist()))
