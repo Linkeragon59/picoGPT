@@ -5,24 +5,18 @@ torch.manual_seed(1337)
 
 # Hyperparameters
 
-# Following params taking too long with my GPU
-#batch_size = 64
-#block_size = 256
-#n_embed = 384
-#n_head = 6
-#n_layer = 6
 batch_size = 64
 block_size = 256
-n_embed = 64
-n_head = 3
-n_layer = 2
+n_embed = 384
+n_head = 6
+n_layer = 6
 dropout_ratio = 0.2
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 training_steps = 5000
 learning_rate = 3e-4
-eval_interval = 10
-eval_size = 200
+eval_interval = 500
+eval_size = 100
 
 # Data setup
 with open('input.txt', 'r', encoding='utf-8') as f:
@@ -188,7 +182,7 @@ if train_model_from_scratch:
     optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
 
     for step in range(training_steps):
-        if step % eval_interval == 0:
+        if (step % eval_interval == 0) or (step == training_steps - 1):
             losses = estimate_loss()
             print(f"step {step}: train loss {losses['train']:.4f}, eval loss: {losses['eval']:.4f}")
             torch.save(model.state_dict(), 'model')
